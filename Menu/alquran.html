@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyRNI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Existing styles remain the same... */
+
+        /* New styles for interactive elements */
+        .menu-item {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(0, 128, 128, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .menu-item.active {
+            background-color: rgba(0, 128, 128, 0.15);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .qr-code-container {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+        }
+        
+        .event-card {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-3px);
+            border-left-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body class="relative pb-16">
+    <!-- Previous content remains the same... -->
+
+    <!-- Expanded Main Content -->
+    <main class="p-4 h-90 overflow-y-auto">
+        <!-- Previous sections remain the same... -->
+
+        <!-- Expanded Quran Section -->
+        <section id="quran" class="content-section">
+            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
+                <h2 class="text-lg font-semibold text-teal-700 mb-4 flex items-center">
+                    <i class="fas fa-book-quran mr-2 text-teal-600"></i>
+                    Al-Qur'an Digital
+                </h2>
+                
+                <!-- Quran Reader with Interactive Features -->
+                <div class="mb-6 bg-gray-50 p-4 rounded-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center">
+                            <button class="bg-teal-600 text-white p-2 rounded-full mr-2">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                            <span class="text-sm font-medium">Al-Baqarah: 255 (Ayat Kursi)</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-teal-100 text-teal-800 p-2 rounded-full">
+                                <i class="fas fa-share"></i>
+                            </button>
+                            <button class="bg-teal-100 text-teal-800 p-2 rounded-full">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="arabic-text text-2xl text-right mb-4 leading-loose" dir="rtl">
+                        ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ لَا تَأْخُذُهُۥ سِنَةٌۭ وَلَا نَوْمٌۭ ۚ لَّهُۥ مَا فِى ٱلسَّمَـٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَىْءٍۢ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ ۖ وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ
+                    </div>
+                    
+                    <div class="mb-4 p-3 bg-white rounded-lg border-l-4 border-teal-400">
+                        <h4 class="font-medium text-teal-700 mb-2">Terjemahan</h4>
+                        <p>Allah, tidak ada tuhan selain Dia. Yang Hidup kekal lagi terus menerus mengurus makhluk-Nya. Tidak mengantuk dan tidak tidur. Milik-Nya apa yang ada di langit dan di bumi. Tidak ada yang dapat memberi syafaat di sisi-Nya tanpa izin-Nya. Dia mengetahui apa yang di hadapan mereka dan di belakang mereka, dan mereka tidak mengetahui apa pun dari ilmu-Nya melainkan apa yang Dia kehendaki. Kursi-Nya meliputi langit dan bumi. Dan Dia tidak merasa berat memelihara keduanya, dan Dia Mahatinggi, Mahabesar.</p>
+                    </div>
+                    
+                    <div class="audio-player bg-gray-100 p-3 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <button class="bg-teal-600 text-white p-3 rounded-full">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="flex-1 mx-4">
+                                <div class="h-1 bg-gray-300 rounded-full overflow-hidden">
+                                    <div class="h-full bg-teal-600" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-600">3:45 / 5:30</span>
+                        </div>
+                        <div class="mt-2 text-center text-sm text-gray-600">
+                            Mishary Alafasy - Surat Al-Baqarah
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Surah Navigator -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-teal-50 p-3 rounded-lg flex items-center">
+                        <div class="bg-teal-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">
+                            1
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Al-Fatihah</h4>
+                            <p class="text-xs text-gray-500">7 ayat • Makkiyah</p>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50 p-3 rounded-lg flex items-center">
+                        <div class="bg-amber-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">
+                            2
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Al-Baqarah</h4>
+                            <p class="text-xs text-gray-500">286 ayat • Madaniyah</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded-lg flex items-center">
+                        <div class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">
+                            3
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Ali Imran</h4>
+                            <p class="text-xs text-gray-500">200 ayat • Madaniyah</p>
+                        </div>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded-lg flex items-center">
+                        <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">
+                            4
+                        </div>
+                        <div>
+                            <h4 class="font-medium">An-Nisa</h4>
+                            <p class="text-xs text-gray-500">176 ayat • Madaniyah</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bookmarked Ayat -->
+                <div class="mt-6">
+                    <h3 class="text-md font-semibold mb-3 text-teal-700 flex items-center">
+                        <i class="fas fa-bookmark mr-2 text-teal-600"></i>
+                        Ayat Favorit
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium bg-teal-100 text-teal-800 px-2 py-1 rounded">Al-Fatihah: 1-3</span>
+                                <button class="text-gray-400 hover:text-teal-600">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="arabic-text text-xl text-right mb-2" dir="rtl">
+                                بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+                            </div>
+                            <p class="text-sm text-gray-600">Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang. Segala puji bagi Allah, Tuhan semesta alam. Yang Maha Pengasih lagi Maha Penyayang.</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium bg-teal-100 text-teal-800 px-2 py-1 rounded">Al-Baqarah: 186</span>
+                                <button class="text-gray-400 hover:text-teal-600">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="arabic-text text-xl text-right mb-2" dir="rtl">
+                                وَإِذَا سَأَلَكَ عِبَادِى عَنِّى فَإِنِّى قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ ٱلدَّاعِ إِذَا دَعَانِ ۖ فَلْيَسْتَجِيبُوا۟ لِى وَلْيُؤْمِنُوا۟ بِى لَعَلَّهُمْ يَرْشُدُونَ
+                            </div>
+                            <p class="text-sm text-gray-600">Dan apabila hamba-hamba-Ku bertanya kepadamu tentang Aku, maka sesungguhnya Aku dekat. Aku mengabulkan permohonan orang yang berdoa apabila ia memohon kepada-Ku...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expanded Dua Section -->
+        <section id="dua" class="content-section">
+            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
+                <h2 class="text-lg font-semibold text-teal-700 mb-4 flex items-center">
+                    <i class="fas fa-hands-praying mr-2 text-amber-600"></i>
+                    Doa-doa Harian
+                </h2>
+                
+                <!-- Dua Categories -->
+                <div class="flex space-x-2 overflow-x-auto pb-3 mb-4">
+                    <button class="bg-teal-600 text-white px-3 py-1 rounded-full text-xs whitespace-nowrap">Semua</button>
+                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Pagi-Petang</button>
+                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Setelah Sholat</button>
+                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Sebelum Tidur</button>
+                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Makan & Minum</button>
+                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Perlindungan</button>
+                </div>
+                
+                <!-- Featured Dua -->
+                <div class="bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-amber-800 mb-2">Doa Harian Pilihan</h3>
+                    <div class="arabic-text text-xl text-right mb-2 leading-loose" dir="rtl">
+                        اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ
+                    </div>
+                    <p class="text-sm text-amber-700 mb-3">"Ya Allah, dengan rahmat-Mu kami memasuki pagi, dan dengan rahmat-Mu kami memasuki petang. Dengan rahmat-Mu kami hidup, dan dengan kehendak-Mu kami mati. Dan kepada-Mu kebangkitan (bagi semua makhluk)."</p>
+                    <div class="flex justify-between items-center">
+                        <button class="bg-amber-600 text-white px-3 py-1 rounded-full text-xs flex items-center">
+                            <i class="fas fa-volume-up mr-1"></i> Dengarkan
+                        </button>
+                        <div class="flex space-x-2">
+                            <button class="text-amber-600">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                            <button class="text-amber-600">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dua List -->
+                <div class="space-y-4">
+                    <div class="event-card bg-white p-3 rounded-lg shadow-sm">
+                        <h4 class="font-medium flex items-center">
+                            <i class="fas fa-moon mr-2 text-teal-600"></i>
+                            Doa Sebelum Tidur
+                        </h4>
+                        <div class="arabic-text text-lg text-right my-2" dir="rtl">
+                            بِاسْمِكَ رَبِّـي وَضَعْـتُ جَنْبِـي، وَبِكَ أَرْفَعُـهُ، فَإِنْ أَمْسَـكْتَ نَفْسِـي فَارْحَمْـهَا، وَإِنْ أَرْسَلْتَـهَا فَاحْفَظْـهَا بِمَـا تَحْفَـظُ بِهِ عِبَـادَكَ الصَّـالِحِـينَ
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">"Dengan nama-Mu, ya Rabb-ku, aku meletakkan lambungku. Dan dengan nama-Mu aku mengangkatnya. Jika Engkau menahan jiwaku maka sayangilah ia. Dan jika Engkau melepaskannya maka peliharalah ia sebagaimana Engkau memelihara hamba-hamba-Mu yang shalih."</p>
+                        <div class="flex justify-between items-center">
+                            <button class="text-teal-600 text-sm flex items-center">
+                                <i class="fas fa-volume-up mr-1"></i> Dengarkan
+                            </button>
+                            <button class="text-teal-600 text-sm flex items-center">
+                                <i class="far fa-bookmark mr-1"></i> Simpan
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card bg-white p-3 rounded-lg shadow-sm">
+                        <h4 class="font-medium flex items-center">
+                            <i class="fas fa-utensils mr-2 text-teal-600"></i>
+                            Doa Sebelum Makan
+                        </h4>
+                        <div class="arabic-text text-lg text-right my-2" dir="rtl">
+                            اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا، وَقِنَا عَذَابَ النَّارِ
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">"Ya Allah, berkahilah kami dalam rezeki yang telah Engkau berikan kepada kami dan peliharalah kami dari siksa api neraka."</p>
+                        <div class="flex justify-between items-center">
+                            <button class="text-teal-600 text-sm flex items-center">
+                                <i class="fas fa-volume-up mr-1"></i> Dengarkan
+                            </button>
+                            <button class="text-teal-600 text-sm flex items-center">
+                                <i class="fas fa-bookmark mr-1"></i> Tersimpan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Search Dua -->
+                <div class="mt-6">
+                    <div class="relative">
+                        <input type="text" placeholder="Cari doa..." class="w-full bg-gray-100 border-none rounded-full pl-4 pr-10 py-2 text-sm focus:ring-2 focus:ring-teal-500">
+                        <i class="fas fa-search absolute right-3 top-2.5 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JavaScript for Interactive Elements -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Navigation menu functionality
+                const navItems = document.querySelectorAll('.nav-item');
+                const contentSections = document.querySelectorAll('.content-section');
+                
+                navItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        // Remove active class from all items
+                        navItems.forEach(navItem => navItem.classList.remove('active-nav'));
+                        contentSections.forEach(section => section.classList.remove('active'));
+                        
+                        // Add active class to clicked item
+                        this.classList.add('active-nav');
+                        
+                        // Show corresponding section
+                        const sectionId = this.getAttribute('data-section');
+                        document.getElementById(sectionId).classList.add('active');
+                    });
+                });
+                
+                // Quick access buttons functionality
+                const quickAccessBtns = document.querySelectorAll('.quick-access-btn');
+                quickAccessBtns.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const section = this.getAttribute('data-section');
+                        
+                        // Remove active class from all nav items
+                        navItems.forEach(navItem => navItem.classList.remove('active-nav'));
+                        contentSections.forEach(section => section.classList.remove('active'));
+                        
+                        // Find and activate the corresponding nav item
+                        const targetNavItem = document.querySelector(`.nav-item[data-section="${section}"]`);
+                        if(targetNavItem) {
+                            targetNavItem.classList.add('active-nav');
+                        }
+                        
+                        // Show the section
+                        document.getElementById(section).classList.add('active');
+                    });
+                });
+                
+                // Sidebar menu toggle
+                const menuBtn = document.getElementById('menu-btn');
+                const closeMenuBtn = document.getElementById('close-menu-btn');
+                const sideMenu = document.getElementById('side-menu');
+                const sideMenuBg = document.getElementById('side-menu-bg');
+                
+                menuBtn.addEventListener('click', function() {
+                    sideMenu.classList.remove('-translate-x-full');
+                    sideMenuBg.classList.remove('hidden');
+                });
+                
+                closeMenuBtn.addEventListener('click', function() {
+                    sideMenu.classList.add('-translate-x-full');
+                    sideMenuBg.classList.add('hidden');
+                });
+                
+                sideMenuBg.addEventListener('click', function() {
+                    sideMenu.classList.add('-translate-x-full');
+                    this.classList.add('hidden');
+                });
+                
+                // Initialize with dashboard active
+                document.querySelector('.nav-item').classList.add('active-nav');
+                document.getElementById('dashboard').classList.add('active');
+                
+                // Audio player functionality
+                const playButtons = document.querySelectorAll('.fa-play');
+                playButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // In a real app, this would control actual audio playback
+                        this.classList.remove('fa-play');
+                        this.classList.add('fa-pause');
+                        
+                        // Simulate audio playback (just for demo)
+                        setTimeout(() => {
+                            this.classList.remove('fa-pause');
+                            this.classList.add('fa-play');
+                        }, 3000);
+                    });
+                });
+            });
+        </script>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around py-2 z-10">
+        <a href="#" class="nav-item active-nav flex flex-col items-center text-xs" data-section="dashboard">
+            <i class="fas fa-home text-lg mb-1"></i>
+            <span>Beranda</span>
+        </a>
+        <a href="#" class="nav-item flex flex-col items-center text-xs" data-section="attendance">
+            <i class="fas fa-user-check text-lg mb-1"></i>
+            <span>Kehadiran</span>
+        </a>
+        <a href="#" class="nav-item flex flex-col items-center text-xs" data-section="prayer">
+            <i class="fas fa-pray text-lg mb-1"></i>
+            <span>Sholat</span>
+        </a>
+        <a href="#" class="nav-item flex flex-col items-center text-xs" data-section="quran">
+            <i class="fas fa-book-quran text-lg mb-1"></i>
+            <span>Qur'an</span>
+        </a>
+        <a href="#" class="nav-item flex flex-col items-center text-xs" data-section="dua">
+            <i class="fas fa-hands-praying text-lg mb-1"></i>
+            <span>Doa</span>
+        </a>
+    </nav>
+</body>
+</html>
