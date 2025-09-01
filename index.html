@@ -1,546 +1,601 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyRNI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Dashboard - Rohis Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary: #008080;
-            --secondary: #FFD700;
-            --light: #f8f9fa;
-            --dark: #212529;
+            --primary-green: #1a472a;
+            --secondary-green: #2e7d32;
+            --gold: #d4af37;
+            --light-beige: #f5f5dc;
         }
-
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(135deg, #f8faf8 0%, #e8f5e8 100%);
+            min-height: 100vh;
         }
-
-        .mosque-icon {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            line-height: 2;
         }
-
-        .active-nav {
-            color: var(--primary);
-            position: relative;
+        
+        .islamic-pattern {
+            background-image: 
+                radial-gradient(circle at 5% 5%, var(--gold) 2px, transparent 2px),
+                radial-gradient(circle at 10% 10%, var(--gold) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
-
-        .active-nav::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background-color: var(--primary);
-            border-radius: 3px;
+        
+        .card-gradient {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            box-shadow: 0 4px 20px rgba(0, 100, 0, 0.08);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 100, 0, 0.1);
+            transition: all 0.3s ease;
         }
-
+        
+        .card-gradient:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 100, 0, 0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary-green), var(--primary-green));
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 71, 42, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 71, 42, 0.3);
+        }
+        
         .prayer-time {
-            background: linear-gradient(135deg, rgba(0, 128, 128, 0.1), rgba(255, 215, 0, 0.1));
-            border-left: 3px solid var(--primary);
-        }
-
-        .current-prayer {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
             color: white;
         }
-
-        .gold-text {
-            background: linear-gradient(135deg, var(--secondary), #daa520);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .quran-card {
+        
+        .stat-card {
             transition: all 0.3s ease;
-            border-bottom: 3px solid var(--primary);
+            cursor: pointer;
         }
-
-        .quran-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        
+        .stat-card:hover {
+            transform: scale(1.05);
         }
-
-        .h-90 {
-            height: 90%;
+        
+        .event-card {
+            transition: all 0.3s ease;
         }
-
-        .content-section {
-            display: none;
+        
+        .event-card:hover {
+            background: linear-gradient(135deg, #f0fff0 0%, #e6f6e6 100%);
         }
-
-        .content-section.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
+        
+        .progress-ring {
+            position: relative;
+            width: 80px;
+            height: 80px;
         }
-
-        @keyframes fadeIn {
+        
+        .progress-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+        
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+        }
+        
+        .dark-mode .card-gradient {
+            background: linear-gradient(145deg, #2d2d2d 0%, #3d3d3d 100%);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
-
-<body class="relative pb-16">
+<body class="relative">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-teal-600 to-teal-500 text-white p-4 shadow-md">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-mosque text-2xl mosque-icon"></i>
-                <h1 class="text-xl font-bold">MyRNI</h1>
+    <header class="bg-green-800 text-white islamic-pattern py-4 px-6 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                    <i class="fas fa-mosque text-green-800 text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold">Rohis Digital</h1>
+                    <p class="text-sm text-green-200">Dashboard Organisasi Islami</p>
+                </div>
             </div>
             <div class="flex items-center space-x-4">
-                <button id="notification-btn" class="relative">
-                    <i class="fas fa-bell text-xl"></i>
-                    <span
-                        class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                <button id="themeToggle" class="p-3 rounded-full bg-white/20 hover:bg-white/30 transition">
+                    <i class="fas fa-moon"></i>
                 </button>
-                <button id="menu-btn">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
+                <div class="relative group">
+                    <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center cursor-pointer">
+                        <i class="fas fa-user text-white"></i>
+                    </div>
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden group-hover:block z-50">
+                        <div class="px-4 py-2 border-b">
+                            <p class="font-semibold">Ahmad Rizky</p>
+                            <p class="text-sm text-gray-600">Pengurus Aktif</p>
+                        </div>
+                        <a href="#" class="block px-4 py-2 hover:bg-green-50 text-gray-700">Profil</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-green-50 text-gray-700">Pengaturan</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-red-50 text-red-600">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Side Menu -->
-    <div id="side-menu"
-        class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 transform -translate-x-full transition-transform duration-300">
-        <div class="p-4 bg-teal-600 text-white flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <img src="https://placehold.co/40x40" alt="Foto profil anggota MyRNI dengan latar belakang masjid"
-                    class="rounded-full">
-                <div>
-                    <p class="font-semibold">Username</p>
-                    <p class="text-xs opacity-80">Anggota MyRNI</p>
-                </div>
-            </div>
-            <button id="close-menu-btn" class="text-2xl">&times;</button>
-        </div>
-        <div class="py-2 overflow-y-auto h-[calc(100%-70px)]">
-            <a href="#" class="block px-4 py-3 hover:bg-gray-100 flex items-center space-x-3">
-                <i class="fas fa-chalkboard-teacher w-6 text-center text-teal-600"></i>
-                <span>Kajian Online</span>
-            </a>
-            <a href="#" class="block px-4 py-3 hover:bg-gray-100 flex items-center space-x-3">
-                <i class="fas fa-users w-6 text-center text-teal-600"></i>
-                <span>Forum Diskusi</span>
-            </a>
-            <a href="#" class="block px-4 py-3 hover:bg-gray-100 flex items-center space-x-3">
-                <i class="fas fa-trophy w-6 text-center text-teal-600"></i>
-                <span>Leaderboard Poin</span>
-            </a>
-            <a href="#" class="block px-4 py-3 hover:bg-gray-100 flex items-center space-x-3">
-                <i class="fas fa-images w-6 text-center text-teal-600"></i>
-                <span>Galeri Kegiatan</span>
-            </a>
-            <a href="#" class="block px-4 py-3 hover:bg-gray-100 flex items-center space-x-3">
-                <i class="fas fa-user-circle w-6 text-center text-teal-600"></i>
-                <span>Profil Saya</span>
-            </a>
-            <div class="border-t mx-4 my-2"></div>
-            <a href="#" class="block px-4 py-3 hover:bg-gray-100 flex items-center space-x-3">
-                <i class="fas fa-cog w-6 text-center text-teal-600"></i>
-                <span>Pengaturan</span>
-            </a>
-            <a href="#" class="block px-4 py-3 hover:bg-gray-100 flex items-center space-x-3">
-                <i class="fas fa-sign-out-alt w-6 text-center text-teal-600"></i>
-                <span>Keluar</span>
-            </a>
-        </div>
-    </div>
-    <div id="side-menu-bg" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
-
     <!-- Main Content -->
-    <main class="p-4 h-90 overflow-y-auto">
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="content-section active">
-            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-lg font-semibold gold-text">Dashboard</h2>
-                    <span class="text-sm text-gray-500">Hari ini, 30 Agustus 2025</span>
-                </div>
+    <main class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Welcome Section -->
+        <div class="card-gradient p-8 mb-8 text-center animate-fade-in-up">
+            <h2 class="text-3xl font-bold text-green-800 mb-4">Assalamu'alaikum, Ahmad! 👋</h2>
+            <p class="text-gray-600 text-lg">Selamat datang kembali di Dashboard Rohis Digital</p>
+            <div class="mt-4 bg-green-50 inline-flex items-center px-4 py-2 rounded-full">
+                <i class="fas fa-calendar-check text-green-600 mr-2"></i>
+                <span class="text-sm">Hari ini: Jumat, 15 Desember 2023</span>
+            </div>
+        </div>
 
-                <!-- Sholat Time -->
-                <div class="grid grid-cols-3 gap-2 mb-4">
-                    <div class="prayer-time p-2 rounded text-center">
-                        <p class="text-sm text-gray-600">Subuh</p>
-                        <p class="font-bold">04:30</p>
-                    </div>
-                    <div class="prayer-time current-prayer p-2 rounded text-center">
-                        <p class="text-sm">Dzuhur</p>
-                        <p class="font-bold">12:15</p>
-                    </div>
-                    <div class="prayer-time p-2 rounded text-center">
-                        <p class="text-sm text-gray-600">Ashar</p>
-                        <p class="font-bold">15:45</p>
-                    </div>
-                    <div class="prayer-time p-2 rounded text-center">
-                        <p class="text-sm text-gray-600">Maghrib</p>
-                        <p class="font-bold">18:20</p>
-                    </div>
-                    <div class="prayer-time p-2 rounded text-center">
-                        <p class="text-sm text-gray-600">Isya</p>
-                        <p class="font-bold">19:35</p>
-                    </div>
-                    <div class="prayer-time p-2 rounded text-center bg-amber-100">
-                        <p class="text-sm text-gray-600">Imsak</p>
-                        <p class="font-bold">04:20</p>
-                    </div>
+        <!-- Quick Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Members -->
+            <div class="card-gradient p-6 text-center stat-card" onclick="showSection('members')">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-green-600 text-2xl"></i>
                 </div>
+                <div class="text-3xl font-bold text-green-800">127</div>
+                <div class="text-gray-600">Total Anggota</div>
+                <div class="text-sm text-green-600 mt-2 flex items-center justify-center">
+                    <i class="fas fa-arrow-up mr-1"></i> +8 bulan ini
+                </div>
+            </div>
+            
+            <!-- Attendance Rate -->
+            <div class="card-gradient p-6 text-center stat-card" onclick="showSection('attendance')">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calendar-check text-blue-600 text-2xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-blue-800">89%</div>
+                <div class="text-gray-600">Kehadiran</div>
+                <div class="text-sm text-blue-600 mt-2 flex items-center justify-center">
+                    <i class="fas fa-chart-line mr-1"></i> ↑ 5% dari bulan lalu
+                </div>
+            </div>
+            
+            <!-- Financial Status -->
+            <div class="card-gradient p-6 text-center stat-card" onclick="showSection('finance')">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-coins text-yellow-600 text-2xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-yellow-800">Rp 3.7Jt</div>
+                <div class="text-gray-600">Total Kas</div>
+                <div class="text-sm text-yellow-600 mt-2 flex items-center justify-center">
+                    <i class="fas fa-wallet mr-1"></i> Rp 450rb masuk
+                </div>
+            </div>
+            
+            <!-- Activities This Month -->
+            <div class="card-gradient p-6 text-center stat-card" onclick="showSection('activities')">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calendar-day text-purple-600 text-2xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-purple-800">18</div>
+                <div class="text-gray-600">Kegiatan Bulan Ini</div>
+                <div class="text-sm text-purple-600 mt-2 flex items-center justify-center">
+                    <i class="fas fa-running mr-1"></i> 5 berlangsung
+                </div>
+            </div>
+        </div>
 
-                <!-- Next Activity -->
-                <div class="mb-4">
-                    <h3 class="text-md font-semibold mb-2 text-teal-700">Kegiatan Mendatang</h3>
-                    <div class="flex items-start p-3 bg-gradient-to-r from-amber-50 to-teal-50 rounded-lg">
-                        <div class="bg-teal-600 text-white p-2 rounded-lg text-center mr-3 w-12">
-                            <p class="text-xs">JUN</p>
-                            <p class="font-bold">15</p>
+        <!-- Main Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Left Column -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Prayer Times & Islamic Quote -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Prayer Times -->
+                    <div class="card-gradient p-6 prayer-time">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-clock mr-3"></i>Waktu Sholat Hari Ini
+                        </h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="text-center p-3 bg-white/10 rounded-xl">
+                                <div class="text-xl font-bold">04:30</div>
+                                <div class="text-sm opacity-90">Subuh</div>
+                                <div class="text-xs opacity-75 mt-1">± 15 menit lagi</div>
+                            </div>
+                            <div class="text-center p-3 bg-white/10 rounded-xl">
+                                <div class="text-xl font-bold">12:05</div>
+                                <div class="text-sm opacity-90">Dzuhur</div>
+                                <div class="text-xs opacity-75 mt-1">± 2 jam lagi</div>
+                            </div>
+                            <div class="text-center p-3 bg-white/10 rounded-xl">
+                                <div class="text-xl font-bold">15:20</div>
+                                <div class="text-sm opacity-90">Ashar</div>
+                                <div class="text-xs opacity-75 mt-1">± 5 jam lagi</div>
+                            </div>
+                            <div class="text-center p-3 bg-white/10 rounded-xl">
+                                <div class="text-xl font-bold">18:00</div>
+                                <div class="text-sm opacity-90">Maghrib</div>
+                                <div class="text-xs opacity-75 mt-1">± 8 jam lagi</div>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h4 class="font-medium">Kajian Rutin Ahad Pagi</h4>
-                            <p class="text-sm text-gray-600">08:00 - 10:00 WIB</p>
-                            <p class="text-xs mt-1">Aula Masjid Kampus</p>
+                        <button class="btn-primary w-full py-3 rounded-xl text-white font-semibold mt-4">
+                            <i class="fas fa-bell mr-2"></i>Setel Pengingat
+                        </button>
+                    </div>
+
+                    <!-- Daily Quote -->
+                    <div class="card-gradient p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-green-800 flex items-center">
+                            <i class="fas fa-quote-left mr-3"></i>Quote Islami Hari Ini
+                        </h3>
+                        <div class="text-center">
+                            <p class="arabic-text text-2xl mb-4" style="line-height: 2.5;">
+                                ﴾ وَمَنْ يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مَخْرَجًا ﴿
+                            </p>
+                            <p class="text-gray-700 italic text-sm mb-2">
+                                "Barangsiapa bertakwa kepada Allah, niscaya Dia akan membukakan jalan keluar baginya."
+                            </p>
+                            <p class="text-xs text-gray-500">(QS. At-Talaq: 2)</p>
                         </div>
-                        <button class="bg-teal-600 text-white px-3 py-1 rounded-full text-xs">Detail</button>
+                        <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                            <p class="text-sm text-green-800">
+                                <i class="fas fa-lightbulb mr-2"></i>
+                                Mulailah hari dengan mengingat Allah, niscaya Dia akan memudahkan urusanmu.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Quick Access -->
-                <div>
-                    <h3 class="text-md font-semibold mb-2 text-teal-700">Akses Cepat</h3>
-                    <div class="grid grid-cols-4 gap-3 text-center">
-                        <a href="#" class="quick-access-btn" data-section="attendance">
-                            <div class="bg-white p-3 rounded-lg shadow-sm">
-                                <i class="fas fa-user-check text-teal-600 text-xl mb-1"></i>
-                                <p class="text-xs">Kehadiran</p>
+                <!-- Attendance Chart -->
+                <div class="card-gradient p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-semibold text-green-800 flex items-center">
+                            <i class="fas fa-chart-line mr-3"></i>Statistik Kehadiran 30 Hari Terakhir
+                        </h3>
+                        <select class="p-2 border border-gray-300 rounded-lg text-sm bg-white">
+                            <option>Bulan Ini</option>
+                            <option>3 Bulan Terakhir</option>
+                            <option>6 Bulan Terakhir</option>
+                        </select>
+                    </div>
+                    <canvas id="attendanceChart" height="120"></canvas>
+                    <div class="grid grid-cols-3 gap-4 mt-6">
+                        <div class="text-center p-3 bg-green-50 rounded-lg">
+                            <div class="text-xl font-bold text-green-800">89%</div>
+                            <div class="text-sm text-gray-600">Rata-rata</div>
+                        </div>
+                        <div class="text-center p-3 bg-blue-50 rounded-lg">
+                            <div class="text-xl font-bold text-blue-800">92%</div>
+                            <div class="text-sm text-gray-600">Tertinggi</div>
+                        </div>
+                        <div class="text-center p-3 bg-yellow-50 rounded-lg">
+                            <div class="text-xl font-bold text-yellow-800">78%</div>
+                            <div class="text-sm text-gray-600">Terendah</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="card-gradient p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-semibold text-green-800 flex items-center">
+                            <i class="fas fa-history mr-3"></i>Kegiatan Terbaru
+                        </h3>
+                        <button class="text-green-600 hover:text-green-800 text-sm">
+                            Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-4 bg-green-50 rounded-xl event-card">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-microphone text-green-600"></i>
                             </div>
-                        </a>
-                        <a href="#" class="quick-access-btn" data-section="prayer">
-                            <div class="bg-white p-3 rounded-lg shadow-sm">
-                                <i class="fas fa-pray text-amber-600 text-xl mb-1"></i>
-                                <p class="text-xs">Jadwal Sholat</p>
+                            <div class="flex-1">
+                                <div class="font-semibold">Kajian Rutin Jumat</div>
+                                <div class="text-sm text-gray-600">Kemarin, 19:00 - Masjid Al-Falah</div>
+                                <div class="text-xs text-green-600 mt-1">45 orang hadir</div>
                             </div>
-                        </a>
-                        <a href="/Menu/alquran.html" class="quick-access-btn" data-section="quran">
-                            <div class="bg-white p-3 rounded-lg shadow-sm">
-                                <i class="fas fa-book-quran text-teal-600 text-xl mb-1"></i>
-                                <p class="text-xs">Al-Qur'an</p>
+                            <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                                Selesai
                             </div>
-                        </a>
-                        <a href="#" class="quick-access-btn" data-section="dua">
-                            <div class="bg-white p-3 rounded-lg shadow-sm">
-                                <i class="fas fa-hands-praying text-amber-600 text-xl mb-1"></i>
-                                <p class="text-xs">Doa Harian</p>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-blue-50 rounded-xl event-card">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-users text-blue-600"></i>
                             </div>
-                        </a>
+                            <div class="flex-1">
+                                <div class="font-semibold">Rapat Evaluasi Bulanan</div>
+                                <div class="text-sm text-gray-600">2 hari lalu, 16:00 - Ruang Rohis</div>
+                                <div class="text-xs text-blue-600 mt-1">28 orang hadir</div>
+                            </div>
+                            <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                                Selesai
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-yellow-50 rounded-xl event-card">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-book-open text-yellow-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold">Kelas Tahsin Dasar</div>
+                                <div class="text-sm text-gray-600">3 hari lalu, 15:00 - Aula Sekolah</div>
+                                <div class="text-xs text-yellow-600 mt-1">32 orang hadir</div>
+                            </div>
+                            <div class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">
+                                Selesai
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Kajian Online -->
-            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-lg font-semibold text-teal-700">Kajian Online</h2>
-                    <a href="#" class="text-sm text-teal-600 font-medium">Lihat Semua</a>
-                </div>
-                <div class="flex space-x-3 overflow-x-auto pb-2">
-                    <div class="flex-shrink-0 w-40 bg-gradient-to-b from-amber-50 to-teal-50 rounded-lg p-3">
-                        <img src="https://placehold.co/160x90"
-                            alt="Materi kajian Islam tentang akhlak dengan ustadz terkenal"
-                            class="w-full h-20 object-cover rounded-lg mb-2">
-                        <h4 class="font-medium text-sm">Akhlak Mulia</h4>
-                        <p class="text-xs text-gray-500">Mulai 30 menit lagi</p>
-                    </div>
-                    <div class="flex-shrink-0 w-40 bg-gradient-to-b from-amber-50 to-teal-50 rounded-lg p-3">
-                        <img src="https://placehold.co/160x90" alt="Rekaman kajian tafsir Al-Qur'an surat Al-Baqarah"
-                            class="w-full h-20 object-cover rounded-lg mb-2">
-                        <h4 class="font-medium text-sm">Tafsir Juz 1</h4>
-                        <p class="text-xs text-gray-500">Tersedia rekaman</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Attendance Section -->
-        <section id="attendance" class="content-section">
-            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
-                <h2 class="text-lg font-semibold text-teal-700 mb-4">Kehadiran Kegiatan</h2>
-
-                <!-- Attendance Options -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                    <a href="#" class="bg-gradient-to-r from-teal-600 to-teal-500 text-white rounded-lg p-4 shadow-md">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <i class="fas fa-qrcode text-2xl mb-2"></i>
-                                <h3 class="font-bold">Absen dengan QR Code</h3>
+            <!-- Right Column -->
+            <div class="space-y-6">
+                <!-- Upcoming Events -->
+                <div class="card-gradient p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-green-800 flex items-center">
+                        <i class="fas fa-calendar-plus mr-3"></i>Kegiatan Mendatang
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-l-4 border-green-400">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-semibold">Kajian Jumat Berikutnya</span>
+                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                                    Besok
+                                </span>
                             </div>
-                            <i class="fas fa-chevron-right text-xl"></i>
+                            <div class="text-sm text-gray-600 mb-2">Jumat, 16 Des - 19:00 WIB</div>
+                            <div class="text-xs text-green-600">Masjid Al-Falah</div>
+                            <button class="btn-primary w-full py-2 rounded-lg text-white font-semibold mt-3 text-sm">
+                                <i class="fas fa-bell mr-1"></i>Ingatkan Saya
+                            </button>
                         </div>
-                    </a>
-                    <a href="#"
-                        class="bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-lg p-4 shadow-md">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <i class="fas fa-map-marker-alt text-2xl mb-2"></i>
-                                <h3 class="font-bold">Absen dengan Lokasi</h3>
+                        
+                        <div class="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border-l-4 border-blue-400">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-semibold">Bakti Sosial</span>
+                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                                    2 hari
+                                </span>
                             </div>
-                            <i class="fas fa-chevron-right text-xl"></i>
+                            <div class="text-sm text-gray-600 mb-2">Minggu, 18 Des - 08:00 WIB</div>
+                            <div class="text-xs text-blue-600">Panti Asuhan Al-Ikhlas</div>
                         </div>
-                    </a>
+                        
+                        <div class="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-l-4 border-purple-400">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-semibold">Pelatihan Kepemimpinan</span>
+                                <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">
+                                    5 hari
+                                </span>
+                            </div>
+                            <div class="text-sm text-gray-600 mb-2">Rabu, 21 Des - 09:00 WIB</div>
+                            <div class="text-xs text-purple-600">Aula Utama Sekolah</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary w-full py-3 rounded-xl text-white font-semibold mt-4">
+                        <i class="fas fa-plus mr-2"></i>Tambah Kegiatan
+                    </button>
                 </div>
 
-                <!-- Attendance History -->
-                <div>
-                    <h3 class="text-md font-semibold mb-3 text-teal-700">Riwayat Kehadiran</h3>
+                <!-- Quick Actions -->
+                <div class="card-gradient p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-green-800 flex items-center">
+                        <i class="fas fa-bolt mr-3"></i>Aksi Cepat
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="p-4 bg-green-50 rounded-xl text-center hover:bg-green-100 transition" onclick="showSection('attendance')">
+                            <i class="fas fa-check-circle text-green-600 text-2xl mb-2"></i>
+                            <div class="text-sm font-medium">Absensi</div>
+                        </button>
+                        <button class="p-4 bg-blue-50 rounded-xl text-center hover:bg-blue-100 transition" onclick="showSection('finance')">
+                            <i class="fas fa-coins text-blue-600 text-2xl mb-2"></i>
+                            <div class="text-sm font-medium">Bayar Iuran</div>
+                        </button>
+                        <button class="p-4 bg-yellow-50 rounded-xl text-center hover:bg-yellow-100 transition" onclick="showSection('quran')">
+                            <i class="fas fa-quran text-yellow-600 text-2xl mb-2"></i>
+                            <div class="text-sm font-medium">Baca Qur'an</div>
+                        </button>
+                        <button class="p-4 bg-purple-50 rounded-xl text-center hover:bg-purple-100 transition" onclick="showSection('lectures')">
+                            <i class="fas fa-microphone text-purple-600 text-2xl mb-2"></i>
+                            <div class="text-sm font-medium">Materi Kultum</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="card-gradient p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-green-800 flex items-center">
+                        <i class="fas fa-info-circle mr-3"></i>Status Sistem
+                    </h3>
                     <div class="space-y-3">
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <div>
-                                <h4 class="font-medium">Kajian Rutin</h4>
-                                <p class="text-xs text-gray-500">10 Juni 2023 • 08:00-10:00</p>
-                            </div>
-                            <span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-xs">Hadir</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Server Status</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                                <i class="fas fa-check-circle mr-1"></i> Online
+                            </span>
                         </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <div>
-                                <h4 class="font-medium">Bakti Sosial</h4>
-                                <p class="text-xs text-gray-500">3 Juni 2023 • 13:00-17:00</p>
-                            </div>
-                            <span class="bg-amber-100 text-amber-800 px-2 py-1 rounded-full text-xs">Izin</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Database</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                                <i class="fas fa-database mr-1"></i> Normal
+                            </span>
                         </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <div>
-                                <h4 class="font-medium">Mabit & Tahajud</h4>
-                                <p class="text-xs text-gray-500">27 Mei 2023 • 20:00-04:00</p>
-                            </div>
-                            <span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-xs">Hadir</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Pengingat Aktif</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                                <i class="fas fa-bell mr-1"></i> 3 aktif
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Update Terakhir</span>
+                            <span class="text-xs text-gray-600">2 jam yang lalu</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Prayer Time Section -->
-        <section id="prayer" class="content-section">
-            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
-                <div class="flex justify-between items-center mb-3">
-                    <div>
-                        <h2 class="text-lg font-semibold text-teal-700">Waktu Sholat</h2>
-                        <p class="text-xs text-gray-500" id="current-location">Jakarta, Indonesia</p>
-                    </div>
-                    <div class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-xs flex items-center">
-                        <i class="fas fa-sync-alt mr-1 text-sm"></i>
-                        <span id="hijri-date">12 Dzulhijjah 1444 H</span>
-                    </div>
-                </div>
-
-                <!-- Prayer Times -->
-                <div class="grid grid-cols-3 gap-3 mb-4">
-                    <div class="prayer-time p-3 rounded text-center">
-                        <p class="text-sm text-gray-600">Subuh</p>
-                        <p class="font-bold text-xl">04:30</p>
-                    </div>
-                    <div class="prayer-time p-3 rounded text-center">
-                        <p class="text-sm text-gray-600">Syuruq</p>
-                        <p class="font-bold text-xl">05:45</p>
-                    </div>
-                    <div class="prayer-time current-prayer p-3 rounded text-center">
-                        <p class="text-sm">Dzuhur</p>
-                        <p class="font-bold text-xl">12:15</p>
-                    </div>
-                    <div class="prayer-time p-3 rounded text-center">
-                        <p class="text-sm text-gray-600">Ashar</p>
-                        <p class="font-bold text-xl">15:45</p>
-                    </div>
-                    <div class="prayer-time p-3 rounded text-center">
-                        <p class="text-sm text-gray-600">Maghrib</p>
-                        <p class="font-bold text-xl">18:20</p>
-                    </div>
-                    <div class="prayer-time p-3 rounded text-center">
-                        <p class="text-sm text-gray-600">Isya</p>
-                        <p class="font-bold text-xl">19:35</p>
-                    </div>
-                </div>
-
-                <!-- Prayer Notifications -->
-                <div class="bg-amber-50 border border-amber-100 rounded-lg p-3 mb-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-md font-semibold text-amber-800">Pengingat Sholat</h3>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer" checked>
-                            <div
-                                class="w-11 h-6 bg-amber-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-amber-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-600">
-                            </div>
-                        </label>
-                    </div>
-                    <p class="text-xs text-amber-700">Aktifkan notifikasi untuk mengingatkan waktu sholat dan iqomah.
-                    </p>
-                </div>
-
-                <!-- Qibla Direction -->
-                <div class="bg-gradient-to-r from-teal-600 to-teal-500 text-white rounded-lg p-4">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <i class="fas fa-compass text-2xl mb-2"></i>
-                            <h3 class="font-bold">Arah Kiblat</h3>
-                            <p class="text-sm opacity-90 mt-1">295° Barat Laut</p>
-                        </div>
-                        <i class="fas fa-location-arrow text-4xl opacity-70"></i>
-                    </div>
-                </div>
+        <!-- Bottom Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card-gradient p-6 text-center">
+                <div class="text-2xl font-bold text-green-800 mb-2">12</div>
+                <div class="text-gray-600">Kegiatan Bulan Depan</div>
+                <div class="text-sm text-green-600 mt-2">Terencana dengan baik</div>
             </div>
-        </section>
-
-        <!-- Quran Section -->
-        <section id="quran" class="content-section">
-            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
-                <h2 class="text-lg font-semibold text-teal-700 mb-4">Al-Qur'an Digital</h2>
-
-                <!-- Quran Search -->
-                <div class="relative mb-4">
-                    <input type="text" placeholder="Cari surah atau ayat..."
-                        class="w-full bg-gray-100 border-none rounded-full pl-4 pr-10 py-2 text-sm focus:ring-2 focus:ring-teal-500">
-                    <i class="fas fa-search absolute right-3 top-2.5 text-gray-400"></i>
-                </div>
-
-                <!-- Last Read -->
-                <div class="bg-gradient-to-r from-amber-50 to-teal-50 rounded-lg p-3 mb-4">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h3 class="text-sm font-semibold text-gray-700 mb-1">Terakhir Dibaca</h3>
-                            <p class="font-bold text-teal-700">Al-Baqarah: 255</p>
-                            <p class="text-xs text-gray-500">Ayat Kursi</p>
-                        </div>
-                        <a href="#" class="bg-teal-600 text-white px-3 py-1 rounded-full text-xs flex items-center">
-                            <i class="fas fa-book-open mr-1"></i> Lanjut
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Surah List -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <a href="#" class="quran-card bg-white p-3 rounded-lg shadow-sm">
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-teal-600 text-white w-8 h-8 rounded-full flex items-center justify-center">1
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-semibold">Al-Fatihah</h4>
-                                <p class="text-xs text-gray-500">7 ayat • Makkiyah</p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="quran-card bg-white p-3 rounded-lg shadow-sm">
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-teal-600 text-white w-8 h-8 rounded-full flex items-center justify-center">2
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-semibold">Al-Baqarah</h4>
-                                <p class="text-xs text-gray-500">286 ayat • Madaniyah</p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="quran-card bg-white p-3 rounded-lg shadow-sm">
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-teal-600 text-white w-8 h-8 rounded-full flex items-center justify-center">3
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-semibold">Ali Imran</h4>
-                                <p class="text-xs text-gray-500">200 ayat • Madaniyah</p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="quran-card bg-white p-3 rounded-lg shadow-sm">
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-teal-600 text-white w-8 h-8 rounded-full flex items-center justify-center">4
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-semibold">An-Nisa</h4>
-                                <p class="text-xs text-gray-500">176 ayat • Madaniyah</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Quran Audio Player -->
-                <div class="mt-4 bg-gray-50 rounded-lg p-3">
-                    <div class="flex items-center justify-between mb-2">
-                        <h3 class="text-sm font-semibold">Murottal</h3>
-                        <div class="flex space-x-2">
-                            <button class="text-teal-600"><i class="fas fa-step-backward"></i></button>
-                            <button class="text-teal-600"><i class="fas fa-play"></i></button>
-                            <button class="text-teal-600"><i class="fas fa-step-forward"></i></button>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span class="text-xs text-gray-500">0:00</span>
-                        <div class="flex-1 bg-gray-200 rounded-full h-1.5">
-                            <div class="bg-teal-600 h-1.5 rounded-full" style="width: 30%"></div>
-                        </div>
-                        <span class="text-xs text-gray-500">3:45</span>
-                    </div>
-                    <div class="mt-2 text-xs text-gray-500">
-                        <span>Al-Fatihah • Mishary Alafasy</span>
-                    </div>
-                </div>
+            <div class="card-gradient p-6 text-center">
+                <div class="text-2xl font-bold text-blue-800 mb-2">8</div>
+                <div class="text-gray-600">Pengurus Aktif</div>
+                <div class="text-sm text-blue-600 mt-2">Tim solid</div>
             </div>
-        </section>
-
-        <!-- Dua Section -->
-        <section id="dua" class="content-section">
-            <div class="bg-white rounded-xl shadow-md p-4 mb-4">
-                <h2 class="text-lg font-semibold text-teal-700 mb-4">Doa-doa Harian</h2>
-
-                <!-- Dua Categories -->
-                <div class="flex space-x-2 overflow-x-auto pb-3 mb-4">
-                    <button
-                        class="bg-teal-600 text-white px-3 py-1 rounded-full text-xs whitespace-nowrap">Semua</button>
-                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Pagi-Petang</button>
-                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Setelah Sholat</button>
-                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Kegiatan</button>
-                    <button class="bg-gray-100 px-3 py-1 rounded-full text-xs whitespace-nowrap">Kebutuhan</button>
-                </div>
-                <!-- Dua List -->
-                <div class="space-y-3">
-                    <div class="bg-gray-50 p-3 rounded-lg">
-                        <h4 class="font-semibold text-teal-700 mb-2">Doa Bangun Tidur</h4>
-                        <div dir="rtl" class="text-xl text-gray-800 font-arab mb-2">الحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا
-                            بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ</div>
-                        <p class="text-xs text-gray-500 mb-2">Alhamdu lillahil-ladhi ahyana ba'da ma amatana wa
-                            ilayhin-nushur</p>
-                        <p class="text-sm">"Segala p
-                        </p>
-                    </div>
-                </div>
+            <div class="card-gradient p-6 text-center">
+                <div class="text-2xl font-bold text-purple-800 mb-2">95%</div>
+                <div class="text-gray-600">Kepuasan Anggota</div>
+                <div class="text-sm text-purple-600 mt-2">Sangat baik</div>
             </div>
-        </section>
+        </div>
     </main>
+
+        <!-- Footer -->
+    <footer class="bg-green-800 text-white py-6 mt-12 islamic-pattern">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2 text-lg font-semibold">Rohis Digital - Aplikasi Organisasi Islami Modern</p>
+            <p class="text-sm text-green-200">© 2023 Rohis Digital. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
     <script>
-        let user = sessionStorage.getItem("user");
+        // Theme toggle
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggleBtn.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Attendance Chart
+        const ctx = document.getElementById('attendanceChart').getContext('2d');
+        const attendanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    '1 Des', '2 Des', '3 Des', '4 Des', '5 Des', '6 Des', '7 Des',
+                    '8 Des', '9 Des', '10 Des', '11 Des', '12 Des', '13 Des', '14 Des',
+                    '15 Des', '16 Des', '17 Des', '18 Des', '19 Des', '20 Des', '21 Des',
+                    '22 Des', '23 Des', '24 Des', '25 Des', '26 Des', '27 Des', '28 Des',
+                    '29 Des', '30 Des'
+                ],
+                datasets: [{
+                    label: 'Kehadiran (%)',
+                    data: [85, 88, 90, 87, 92, 89, 91, 90, 88, 87, 89, 90, 92, 91, 90, 89, 88, 90, 91, 92, 90, 89, 88, 90, 91, 92, 90, 89, 88, 90],
+                    borderColor: 'rgba(26, 71, 42, 0.8)',
+                    backgroundColor: 'rgba(26, 71, 42, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    borderWidth: 3,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: document.body.classList.contains('dark-mode') ? '#fff' : '#1a472a',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: document.body.classList.contains('dark-mode') ? '#ddd' : '#333',
+                            maxRotation: 45,
+                            minRotation: 45,
+                            maxTicksLimit: 10,
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        min: 70,
+                        max: 100,
+                        ticks: {
+                            stepSize: 5,
+                            color: document.body.classList.contains('dark-mode') ? '#ddd' : '#333',
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Dummy function for navigation placeholders
+        function showSection(section) {
+            window.location.href = "/Absen/absen.html";
+        }
+         let user = sessionStorage.getItem("user");
 
         if (!user) {
             // Jika tidak ada session, kembali ke login
             alert("Anda harus login dulu!");
-            window.location.href = "/MyRNI/Login/login.html";
+            window.location.href = "./Login/login.html";
         } else {
             // Jika ada session, tampilkan username
             document.getElementById("welcome").innerText = "Selamat datang, " + user;
@@ -549,8 +604,8 @@
         function logout() {
             sessionStorage.removeItem("user");
             window.location.href = "login.html";
-        }
+        }
+
     </script>
 </body>
-
-</html>
+</html> 
