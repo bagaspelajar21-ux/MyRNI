@@ -148,7 +148,7 @@
                         </div>
                         <a href="#" class="block px-4 py-2 hover:bg-green-50 text-gray-700">Profil</a>
                         <a href="#" class="block px-4 py-2 hover:bg-green-50 text-gray-700">Pengaturan</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-red-50 text-red-600">Logout</a>
+                        <button onclick="logout()"  class="block px-4 py-2 hover:bg-red-50 text-red-600">Logout</button>
                     </div>
                 </div>
             </div>
@@ -603,7 +603,7 @@
 
         function logout() {
             sessionStorage.removeItem("user");
-            window.location.href = "login.html";
+            window.location.href = "./Login/login.html";
         }
 
     </script>
