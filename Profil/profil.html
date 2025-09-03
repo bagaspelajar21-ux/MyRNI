@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akun Anggota</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">Dashboard Rohis</h1>
+
+    <div class="relative">
+      <!-- Tombol ikon user -->
+      <button onclick="toggleDropdown()" class="bg-green-500 p-2 rounded-full">
+        👤
+      </button>
+
+      <!-- Dropdown menu -->
+      <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+        <a href="#" onclick="openProfileForm()" class="block px-4 py-2 hover:bg-green-50 text-gray-700">Profil</a>
+        <a href="#" class="block px-4 py-2 hover:bg-green-50 text-gray-700">Pengaturan</a>
+        <button onclick="logout()" class="block w-full text-left px-4 py-2 hover:bg-red-50 text-red-600">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Biodata di header -->
+  <div class="p-4">
+    <p id="userName" class="font-semibold">Nama User</p>
+    <p id="userRole" class="text-sm text-gray-600">Role User</p>
+  </div>
+
+  <!-- Modal Form Biodata -->
+  <div id="profileModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg w-96 p-6">
+      <h2 class="text-lg font

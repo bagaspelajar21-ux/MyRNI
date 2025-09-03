@@ -149,6 +149,11 @@
         }
     }
 
+// Database user sederhana
+const users = [
+    { email: "admin@gmail.com", name: "Admin", role: "Admin" },
+    { email: "anggota@gmail.com", name: "Anggota RNI", role: "Anggota RNI" }
+];
     // Event submit form login
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -160,9 +165,34 @@
         const button = this.querySelector('button[type="submit"]');
         const originalText = button.textContent;
 
+       // Validasi email
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/;
+        if (!emailPattern.test(email)) {
+        alert("Masukkan email yang benar (contoh: nama@gmail.com)");
+        return;
+        }
+
+       // Validasi password harus "Rohis25"
+        if (password !== "Rohis25") {
+        alert("Password salah! Gunakan password yang benar.");
+        return;
+        }
+        
+        // Cari user berdasarkan email
+        const currentUser = users.find(user => user.email === email);
+        if (!currentUser) {
+        alert("Email tidak terdaftar!");
+        return;
+
+        // Redirect ke dashboard
+        window.location.href = "../index.html";
+
+}
+        // Kalau valid → proses login
         if (email && password) {
-            button.textContent = 'Sedang masuk...';
-            button.disabled = true;
+        button.textContent = 'Sedang masuk...';
+        button.disabled = true;
+
 
             // Simulasi proses login
             setTimeout(() => {

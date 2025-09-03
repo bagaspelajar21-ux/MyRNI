@@ -142,14 +142,29 @@
                         <i class="fas fa-user text-white"></i>
                     </div>
                     <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden group-hover:block z-50">
-                        <div class="px-4 py-2 border-b">
-                            <p class="font-semibold">Bagas Sofiyanto</p>
-                            <p class="text-sm text-gray-600">Pengurus Aktif</p>
+                    <div class="px-4 py-2 border-b">
+
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-green-600"></i>
+                            </div>
+                            <div>
+                                <p id="welcome" class="font-semibold">Nama User</p>
+                                <p id="userRole" class="text-sm text-gray-600">Role User</p>
+                            </div>
                         </div>
+                    </div>
+                <div class="px-4 py-2">
+                    <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-green-600"></i>                              
+                    </div>                          
+                    <!-- ubah pakai id -->
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <a href="#" class="block px-4 py-2 hover:bg-green-50 text-gray-700">Profil</a>
                         <a href="#" class="block px-4 py-2 hover:bg-green-50 text-gray-700">Pengaturan</a>
-                        <button onclick="logout()"  class="block px-4 py-2 hover:bg-red-50 text-red-600">Logout</button>
-                    </div>
+                        <button onclick="logout()"  class="block w-full text-left px-4 py-2 hover:bg-red-50 text-red-600">Logout</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -159,11 +174,32 @@
     <main class="container mx-auto px-4 py-8 max-w-7xl">
         <!-- Welcome Section -->
         <div class="card-gradient p-8 mb-8 text-center animate-fade-in-up">
-        <h2 id="greeting" class="text-3xl font-bold text-green-800 mb-4"></h2>
-            <p class="text-gray-600 text-lg">Selamat datang kembali di My RNI</p>
+        <h2 id="greeting" class="text-4xl font-bold text-green-800 mb-4"></h2>
+            <p class="text-gray-700 text-3xl font-bold">Selamat Datang Kembali Di My RNI</p>
+            <p class="text-gray-500 italic mt-2">"Tetap semangat, jadikan hari ini lebih baik dari kemarin."</p>
             <div class="mt-4 bg-green-50 inline-flex items-center px-4 py-2 rounded-full">
                 <i class="fas fa-calendar-check text-green-600 mr-2"></i>
-                <span class="text-sm">Hari ini: Senin, 1 September 2025</span>
+                <span id="tanggalHariIni" class="text-sm">Memuat...</span>
+        <script>
+          function tampilkanTanggal() {
+            const hariList = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+             const bulanList = [
+      "Januari","Februari","Maret","April","Mei","Juni",
+      "Juli","Agustus","September","Oktober","November","Desember"
+    ];
+
+                const today = new Date();
+                const hari = hariList[today.getDay()];
+                const tanggal = today.getDate();
+                const bulan = bulanList[today.getMonth()];
+                const tahun = today.getFullYear();
+
+                document.getElementById("tanggalHariIni").innerText = `Hari ini: ${hari}, ${tanggal} ${bulan} ${tahun}`;
+            }
+
+            tampilkanTanggal();
+        </script>
+
             </div>
         </div>
 
@@ -175,7 +211,7 @@
                     <i class="fas fa-users text-green-600 text-2xl"></i>
                 </div>
                 <div id="totalMembers" class="text-3xl font-bold text-green-800">0</div>
-                <div class="text-gray-600">Total Anggota</div>
+                <div class="text-gray-600">Total Anggota 40</div>
                 <div class="text-sm text-green-600 mt-2 flex items-center justify-center">
                 <i class="fas fa-arrow-up mr-1"></i>
                  <span id="growth">+0 bulan ini</span>
@@ -225,38 +261,112 @@
             <div class="lg:col-span-2 space-y-6">
                 <!-- Prayer Times & Islamic Quote -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Prayer Times -->
-                    <div class="card-gradient p-6 prayer-time">
-                        <h3 class="text-lg font-semibold mb-4 flex items-center">
-                            <i class="fas fa-clock mr-3"></i>Waktu Sholat Hari Ini
-                        </h3>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="text-center p-3 bg-white/10 rounded-xl">
-                                <div class="text-xl font-bold">04:30</div>
-                                <div class="text-sm opacity-90">Subuh</div>
-                                <div class="text-xs opacity-75 mt-1">± 15 menit lagi</div>
-                            </div>
-                            <div class="text-center p-3 bg-white/10 rounded-xl">
-                                <div class="text-xl font-bold">12:05</div>
-                                <div class="text-sm opacity-90">Dzuhur</div>
-                                <div class="text-xs opacity-75 mt-1">± 2 jam lagi</div>
-                            </div>
-                            <div class="text-center p-3 bg-white/10 rounded-xl">
-                                <div class="text-xl font-bold">15:20</div>
-                                <div class="text-sm opacity-90">Ashar</div>
-                                <div class="text-xs opacity-75 mt-1">± 5 jam lagi</div>
-                            </div>
-                            <div class="text-center p-3 bg-white/10 rounded-xl">
-                                <div class="text-xl font-bold">18:00</div>
-                                <div class="text-sm opacity-90">Maghrib</div>
-                                <div class="text-xs opacity-75 mt-1">± 8 jam lagi</div>
-                            </div>
-                             <div class="text-center p-3 bg-white/10 rounded-xl">
-                                <div class="text-xl font-bold">19:00</div>
-                                <div class="text-sm opacity-90">Isya</div>
-                                <div class="text-xs opacity-75 mt-1">± 9 jam lagi</div>
-                                </div>
+                    <div class="grid grid-cols-2 gap-3"> </div>
+                        <h3 class="text-lg font-semibold mb-4 text-green-800 flex items-center">
+                            <i class="fas fa-mos    que mr-3"></i>Jadwal Sholat Hari Ini                            
+                        </h3>       
+                        <div class="prayer-time p-4 rounded-xl grid grid-cols-3 gap-4">
+                        <!-- Subuh -->
+                        <div class="text-center p-3 bg-white/10 rounded-xl">
+                            <div class="text-xl font-bold" id="subuh">--:--</div>
+                            <div class="text-sm opacity-90">Subuh</div>
+                            <div class="text-xs opacity-75 mt-1" id="subuhDiff">± -- menit lagi</div>
                         </div>
+                        <!-- Dzuhur -->
+                        <div class="text-center p-3 bg-white/10 rounded-xl">
+                            <div class="text-xl font-bold" id="dzuhur">--:--</div>
+                            <div class="text-sm opacity-90">Dzuhur</div>
+                            <div class="text-xs opacity-75 mt-1" id="dzuhurDiff">± -- jam lagi</div>
+                        </div>
+                        <!-- Ashar -->
+                        <div class="text-center p-3 bg-white/10 rounded-xl">
+                            <div class="text-xl font-bold" id="ashar">--:--</div>
+                            <div class="text-sm opacity-90">Ashar</div>
+                            <div class="text-xs opacity-75 mt-1" id="asharDiff">± -- jam lagi</div>
+                        </div>
+                        <!-- Maghrib -->
+                        <div class="text-center p-3 bg-white/10 rounded-xl">
+                            <div class="text-xl font-bold" id="maghrib">--:--</div>
+                            <div class="text-sm opacity-90">Maghrib</div>
+                            <div class="text-xs opacity-75 mt-1" id="maghribDiff">± -- jam lagi</div>
+                        </div>
+                        <!-- Isya -->
+                        <div class="text-center p-3 bg-white/10 rounded-xl">
+                            <div class="text-xl font-bold" id="isya">--:--</div>
+                            <div class="text-sm opacity-90">Isya</div>
+                            <div class="text-xs opacity-75 mt-1" id="isyaDiff">± -- jam lagi</div>
+                        </div>
+                        </div>
+                        <script>
+                        window.onload = async function() {
+                        // Ambil tanggal hari ini
+                        const now = new Date();
+                        const yyyy = now.getFullYear();
+                        const mm = String(now.getMonth() + 1).padStart(2, '0');
+                        const dd = String(now.getDate()).padStart(2, '0');
+
+                        // Ganti dengan ID kota sesuai lokasi Anda
+                        const id_kota = 167; // 167 = Jakarta
+                        const apiUrl = `https://api.myquran.com/v1/sholat/jadwal/167/2025/09/03//${id_kota}/${yyyy}/${mm}/${dd}`;
+
+                        try {
+                            const res = await fetch(apiUrl);
+                            const data = await res.json();
+                            const jadwal = data.data.jadwal;
+
+                            // Isi jam sholat
+                            document.getElementById('subuh').innerText   = jadwal.subuh;
+                            document.getElementById('dzuhur').innerText  = jadwal.dzuhur;
+                            document.getElementById('ashar').innerText   = jadwal.ashar;
+                            document.getElementById('maghrib').innerText = jadwal.maghrib;
+                            document.getElementById('isya').innerText    = jadwal.isya;
+
+                            // Jalankan countdown otomatis
+                            startCountdown("subuh", jadwal.subuh, "subuhDiff");
+                            startCountdown("dzuhur", jadwal.dzuhur, "dzuhurDiff");
+                            startCountdown("ashar", jadwal.ashar, "asharDiff");
+                            startCountdown("maghrib", jadwal.maghrib, "maghribDiff");
+                            startCountdown("isya", jadwal.isya, "isyaDiff");
+
+                        } catch (err) {
+                            console.error("Gagal ambil jadwal:", err);
+                        }
+                        }
+
+                        // Fungsi countdown
+                        function startCountdown(timeStr, targetId) {
+                        function updateCountdown() {
+                            const now = new Date();
+                            const [h, m] = timeStr.split(':').map(Number);
+                            let prayerTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+
+                            document.getElementById(targetId).innerText =
+                            `${hours} jam ${minutes} menit ${seconds} detik lagi`;
+                        }
+                        // Kalau sudah lewat, paksa ke besok
+                            if (prayerTime < now) {
+                            prayerTime.setDate(prayerTime.getDate() + 1);
+                            }
+
+                            let diff = Math.floor((prayerTime - now) / 1000);
+
+                            const hours = Math.floor(diff / 3600);
+                            diff %= 3600;
+                            const minutes = Math.floor(diff / 60);
+                            const seconds = Math.floor(diff % 60);
+
+                            document.getElementById(targetId).innerText =
+                            `${hours} jam ${minutes} menit ${seconds} detik lagi`;
+                        }
+
+                        updateCountdown(); 
+                        // update pertama
+                        setInterval(updateCountdown, 1000); 
+
+                        </script>
+
+
+                        
                         <button class="btn-primary w-full py-3 rounded-xl text-white font-semibold mt-4">
                             <i class="fas fa-bell mr-2"></i>Setel Pengingat
                         </button>
